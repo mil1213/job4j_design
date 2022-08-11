@@ -95,4 +95,16 @@ class MatrixItTest {
         assertThat(it.hasNext()).isFalse();
     }
 
+    @Test
+    void whenMultiHasNextFewElementsFewEmpty() {
+        int[][] in = {
+                {}, {}, {1, 2}, {3}, {}, {}
+        };
+        MatrixIt it = new MatrixIt(in);
+        assertThat(it.next()).isEqualTo(1);
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(3);
+        assertThat(it.hasNext()).isFalse();
+    }
 }
