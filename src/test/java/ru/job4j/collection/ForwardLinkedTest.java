@@ -43,4 +43,10 @@ class ForwardLinkedTest {
         Iterator<Integer> it = linked.iterator();
         assertThat(it.next()).isEqualTo(2);
     }
+
+    @Test
+    void whenAddFirst() {
+        linked.addFirst(5);
+        assertThat(linked.deleteFirst()).isEqualTo(5);
+    }
 }
