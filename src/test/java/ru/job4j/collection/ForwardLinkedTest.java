@@ -49,4 +49,24 @@ class ForwardLinkedTest {
         linked.addFirst(5);
         assertThat(linked.deleteFirst()).isEqualTo(5);
     }
+
+    @Test
+    void whenSize0ThenReturnFalse() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        assertThat(linked.revert()).isFalse();
+    }
+
+    @Test
+    void whenSize1ThenReturnFalse() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        assertThat(linked.revert()).isFalse();
+    }
+
+    @Test
+    void whenAddAndRevertTrue() {
+        assertThat(linked).containsSequence(1, 2, 3, 4);
+        assertThat(linked.revert()).isTrue();
+        assertThat(linked).containsSequence(4, 3, 2, 1);
+    }
 }
