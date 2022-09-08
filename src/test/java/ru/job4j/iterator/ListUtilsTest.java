@@ -39,16 +39,14 @@ class ListUtilsTest {
     @Test
     void whenPredicateRemoveIf() {
         ListUtils.addBefore(input, 1, 2);
-        Predicate<Integer> isEvenNumber = x -> x % 2 == 0;
-        ListUtils.removeIf(input, isEvenNumber);
+        ListUtils.removeIf(input, x -> x % 2 == 0);
         assertThat(input).hasSize(2).containsSequence(1, 3);
     }
 
     @Test
     void whenPredicateReplaceIf() {
         ListUtils.addBefore(input, 1, 2);
-        Predicate<Integer> isEvenNumber = x -> x % 2 == 0;
-        ListUtils.replaceIf(input, isEvenNumber, 7);
+        ListUtils.replaceIf(input, x -> x % 2 == 0, 7);
         assertThat(input).hasSize(3).containsSequence(1, 7, 3);
     }
 
