@@ -34,21 +34,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return hash & (table.length - 1);
+        return hash & (capacity - 1);
     }
 
     private void expand() {
         capacity = capacity * 2;
-        table = Arrays.copyOf(table, capacity);
-        for (int i = 0; i < table.length; i++) {
-            if (table[i] != null) {
-                int newIndex = indexFor(hash(Objects.hashCode(table[i].key)));
-                if (newIndex != i) {
-                    table[newIndex] = table[i];
-                    table[i] = null;
-                }
+        MapEntry<K, V>[] tempTable = new MapEntry[capacity];
+        for (MapEntry mapEntry : table) {
+            if (mapEntry != null) {
+                int newIndex = indexFor(hash(Objects.hashCode(mapEntry.key)));
+                tempTable[newIndex] = mapEntry;
             }
         }
+        table = tempTable;
     }
 
     @Override
