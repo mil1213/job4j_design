@@ -10,7 +10,6 @@ public class Analysis {
         List<String> rsl = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             boolean teg = true;
-            //List<String> rsl = new ArrayList<>();
             String str1 = "";
             String str2 = "";
             for (String line = in.readLine(); line != null; line = in.readLine()) {
