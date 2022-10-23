@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Analysis {
 
-    public void unavailable(String source, String target) {
+    public void unavailable(File source, File target) {
         List<String> rsl = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             boolean teg = true;
@@ -44,7 +44,5 @@ public class Analysis {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Analysis analysis = new Analysis();
-        analysis.unavailable("source.txt", "unavailable2.csv");
     }
 }
