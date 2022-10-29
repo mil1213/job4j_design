@@ -24,15 +24,13 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     }
 
     public void getFiles() {
-        Map<FileProperty, List<Path>> files = allFiles.entrySet().stream()
+        allFiles.entrySet().stream()
                 .filter(n -> n.getValue().size() > 1)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-                for (FileProperty fileProperty : files.keySet()) {
-                    System.out.println(fileProperty.getName() + " - " + fileProperty.getSize());
-                    for (Path path : files.get(fileProperty)) {
+                .forEach(x -> {
+                    System.out.println(x.getKey().getName() + " - " + x.getKey().getSize());
+                    for (Path path : x.getValue()) {
                         System.out.println(path);
                     }
-                }
-
+                });
     }
 }
