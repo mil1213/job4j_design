@@ -11,7 +11,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
-    //HashSet<FileProperty> allFiles = new HashSet<FileProperty>();
     Map<FileProperty, List<Path>> allFiles = new HashMap<>();
 
     @Override
