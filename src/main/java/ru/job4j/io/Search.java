@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 public class Search {
-    static Set<String> extension = Set.of(".txt", ".properties", ".csv");
     public static void main(String[] args) throws IOException {
         validate(args);
         Path start = Paths.get(args[0]);
@@ -31,8 +30,8 @@ public class Search {
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", dir.getAbsoluteFile()));
         }
-        if (!extension.contains(n[1])) {
-            throw new IllegalArgumentException(String.format("No such expansion %s", n[1]));
+        if (!n[1].startsWith(".") || n[1].length() == 1) {
+            throw new IllegalArgumentException("No such extension");
         }
     }
 }
