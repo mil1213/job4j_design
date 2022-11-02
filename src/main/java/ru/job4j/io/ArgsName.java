@@ -16,7 +16,7 @@ public class ArgsName {
 
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException("Is empty");
+            throw new IllegalArgumentException("Amount of arguments is not enough");
         }
         for (String arg : args) {
             String[] kv = arg.split("=", 2);
