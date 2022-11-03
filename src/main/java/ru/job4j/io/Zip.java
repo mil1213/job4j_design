@@ -5,16 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Zip {
-    public void packFiles(List<File> sources, File target) {
+    public void packFiles(List<Path> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            for (File file : sources) {
-                zip.putNextEntry(new ZipEntry(file.getPath()));
-                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(String.valueOf(file)))) {
+            for (Path path : sources) {
+                zip.putNextEntry(new ZipEntry(path.toString()));
+                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(path.toString()))) {
                     zip.write(out.readAllBytes());
                 }
             }
@@ -34,23 +33,30 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
+    private void validate(ArgsName arg) {
+        if (arg.size() != 3) {
             throw new IllegalArgumentException("Amount of arguments is not enough");
         }
-        ArgsName arg = ArgsName.of(args);
         Path dir = Paths.get(arg.get("d"));
-
         if (!Files.isDirectory(dir) || !Files.exists(dir)) {
             throw new IllegalArgumentException("There's no directory");
         }
-        List<File> files = Search.search(dir, p -> {
-                    return !p.toFile().getName().endsWith(arg.get("e"));
-                })
-                .stream().map(p -> p.toFile())
-                .collect(Collectors.toList());
+        if (!".class".equals(arg.get("e"))) {
+            throw new IllegalArgumentException("Extension of excluding files is not correct");
+        }
+        if (!arg.get("o").endsWith(".zip")) {
+            throw new IllegalArgumentException("Extension of Zip file is not correct");
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        ArgsName arg = ArgsName.of(args);
         Zip zipFiles = new Zip();
-        zipFiles.packFiles(files, new File(arg.get("o")));
+        zipFiles.validate(arg);
+        List<Path> paths = Search.search(Paths.get(arg.get("d")), p -> {
+                    return !p.toFile().getName().endsWith(arg.get("e"));
+                });
+        zipFiles.packFiles(paths, new File(arg.get("o")));
 
         Zip zip = new Zip();
         zip.packSingleFile(
