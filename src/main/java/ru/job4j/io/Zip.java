@@ -34,14 +34,11 @@ public class Zip {
     }
 
     private void validate(ArgsName arg) {
-        if (arg.size() != 3) {
-            throw new IllegalArgumentException("Amount of arguments is not enough");
-        }
         Path dir = Paths.get(arg.get("d"));
         if (!Files.isDirectory(dir) || !Files.exists(dir)) {
             throw new IllegalArgumentException("There's no directory");
         }
-        if (!".class".equals(arg.get("e"))) {
+        if (!arg.get("e").startsWith(".") || arg.get("e").length() == 1) {
             throw new IllegalArgumentException("Extension of excluding files is not correct");
         }
         if (!arg.get("o").endsWith(".zip")) {
@@ -50,6 +47,9 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Amount of arguments is not enough");
+        }
         ArgsName arg = ArgsName.of(args);
         Zip zipFiles = new Zip();
         zipFiles.validate(arg);
