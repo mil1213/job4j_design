@@ -56,10 +56,10 @@ public class CSVReader {
         if (!n.get("path").endsWith(".csv")) {
             throw new IllegalArgumentException("Illegal file's name");
         }
-        if (!n.get("delimiter").equals(";")) {
+        if (!";".equals(n.get("delimiter"))) {
             throw new IllegalArgumentException("Illegal delimiter");
         }
-        if (!n.get("out").equals("stdout") && !n.get("out").endsWith(".csv")) {
+        if (!"stdout".equals(n.get("out")) && !n.get("out").endsWith(".csv")) {
             throw new IllegalArgumentException("Illegal path to save");
         }
     }
