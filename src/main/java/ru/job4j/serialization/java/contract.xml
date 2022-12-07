@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<contract name="Technogrup" idNumber="1234567">
+    <status>true</status>
+    <sum>10200000</sum>
+    <describtion subject="monolithic works"/>
+    <dates>
+        <date>01.10.22</date>
+        <date>01.12.22</date>
+    </dates>
+</contract>
+
+
