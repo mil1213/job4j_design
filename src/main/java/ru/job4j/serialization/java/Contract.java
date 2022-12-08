@@ -1,13 +1,22 @@
 package ru.job4j.serialization.java;
 
 import java.util.Arrays;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.*;
+import java.io.StringWriter;
 
+@XmlRootElement(name = "contract")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Contract {
-    private final Contractor contractor;
-    private final boolean status;
-    private final int sum;
-    private final String subject;
-    private final String[] schedule;
+    private Contractor contractor;
+    private boolean status;
+    private int sum;
+    private String subject;
+    @XmlElementWrapper(name = "dates")
+    @XmlElement(name = "date")
+    private String[] schedule;
 
     public Contract(Contractor contractor, boolean status, int sum, String subject, String[] schedule) {
         this.contractor = contractor;
@@ -16,6 +25,10 @@ public class Contract {
         this.subject = subject;
         this.schedule = schedule;
     }
+
+    public Contract() {
+    }
+
 
     @Override
     public String toString() {
