@@ -27,4 +27,12 @@ public class Contractor {
                 + ", idNumber='" + idNumber + '\''
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
 }

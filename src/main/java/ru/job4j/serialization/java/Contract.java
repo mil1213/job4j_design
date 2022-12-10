@@ -40,4 +40,24 @@ public class Contract {
                 + ", schedule=" + Arrays.toString(schedule)
                 + '}';
     }
+
+    public Contractor getContractor() {
+        return contractor;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String[] getSchedule() {
+        return schedule;
+    }
 }
